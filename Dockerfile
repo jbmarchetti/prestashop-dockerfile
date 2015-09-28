@@ -15,5 +15,6 @@ RUN mv /var/www/html/admin-dev /var/www/html/admin-pa28
 RUN rm -R /var/www/html/install-dev
 COPY settings.inc.php /var/www/html/config/settings.inc.php
 
+VOLUME /var/www/html/img
 
 ENTRYPOINT ["/tmp/docker_run.sh"]

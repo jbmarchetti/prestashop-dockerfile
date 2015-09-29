@@ -31,7 +31,7 @@ RUN cp -R /tmp/prestashop/* /var/www/html
 RUN rm -R /var/www/html/install
 RUN mv /var/www/html/admin /var/www/html/admin-pa28
 
-COPY https://github.com/PrestaShop/docker/blob/master/config_files/docker_updt_ps_domains.php /var/www/html/
+#ADD https://github.com/PrestaShop/docker/blob/master/config_files/docker_updt_ps_domains.php /var/www/html/
 
 # Apache configuration
 RUN a2enmod rewrite
@@ -54,5 +54,7 @@ VOLUME /var/www/html/themes
 VOLUME /var/www/html/override
 VOLUME /var/www/html/img
 
-COPY config_files/docker_run.sh /tmp/
+#COPY config_files/docker_run.sh /tmp/
+
+RUN /usr/sbin/apache2ctl -D FOREGROUND
 ENTRYPOINT ["/tmp/docker_run.sh"]

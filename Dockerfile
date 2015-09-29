@@ -20,7 +20,7 @@ RUN apt-get update \
 		unzip \
     memcached \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install iconv mcrypt pdo mysql pdo_mysql mbstring soap gd pear memcache && \
+    && docker-php-ext-install iconv mcrypt pdo mysql pdo_mysql mbstring soap gd memcache && \
     pecl install apc
 
 # Get PrestaShop

@@ -24,7 +24,7 @@ RUN apt-get update \
     pecl install apc
 
 # Get PrestaShop
-ADD https://www.prestashop.com/ajax/controller.php?method=download&type=releases&file=prestashop_1.6.1.1.zip&language=en /tmp/prestashop.zip
+ADD https://www.prestashop.com/download/old/prestashop_1.6.1.1.zip /tmp/prestashop.zip
 RUN unzip -q /tmp/prestashop.zip -d /tmp/
 RUN cp -R /tmp/prestashop/* /var/www/html
 

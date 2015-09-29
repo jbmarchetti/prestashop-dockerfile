@@ -56,5 +56,5 @@ VOLUME /var/www/html/img
 
 #COPY config_files/docker_run.sh /tmp/
 
-RUN /usr/sbin/apache2ctl -D FOREGROUND
+ENTRYPOINT ["/usr/sbin/apache2ctl -D FOREGROUND"]
 ENTRYPOINT ["/tmp/docker_run.sh"]

@@ -39,8 +39,8 @@ RUN chown www-data:www-data -R /var/www/html/
 
 # PHP configuration
 ADD https://github.com/PrestaShop/docker/blob/master/config_files/php.ini /usr/local/etc/php/
-RUN echo 'extension=apc.so' >> /usr/local/etc/php/php.ini && \
-    echo 'extension=memcache.so' >> /usr/local/etc/php/php.ini && \
+#RUN echo 'extension=apc.so' >> /usr/local/etc/php/php.ini && \
+#    echo 'extension=memcache.so' >> /usr/local/etc/php/php.ini && \
 
 
 COPY settings.inc.php /var/www/html/config/settings.inc.php

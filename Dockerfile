@@ -38,7 +38,7 @@ RUN a2enmod rewrite
 RUN chown www-data:www-data -R /var/www/html/
 
 # PHP configuration
-COPY https://github.com/PrestaShop/docker/blob/master/config_files/php.ini /usr/local/etc/php/
+ADD https://github.com/PrestaShop/docker/blob/master/config_files/php.ini /usr/local/etc/php/
 RUN echo 'extension=apc.so' >> /usr/local/etc/php/php.ini && \
     echo 'extension=memcache.so' >> /usr/local/etc/php/php.ini && \
 

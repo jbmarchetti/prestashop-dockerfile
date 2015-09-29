@@ -28,7 +28,7 @@ ADD https://www.prestashop.com/ajax/controller.php?method=download&type=releases
 RUN unzip -q /tmp/prestashop.zip -d /tmp/
 RUN cp -R /tmp/prestashop/* /var/www/html
 
-RUN rm -R /var/www/html/install-dev
+RUN rm -R /var/www/html/install
 RUN mv /var/www/html/admin /var/www/html/admin-pa28
 
 COPY https://github.com/PrestaShop/docker/blob/master/config_files/docker_updt_ps_domains.php /var/www/html/

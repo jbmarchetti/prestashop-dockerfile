@@ -5,7 +5,7 @@ define('_DB_USER_', getenv("DB_USER"));
 define('_DB_PASSWD_', getenv("DB_PASSWD"));
 define('_DB_PREFIX_', 'ps_');
 define('_MYSQL_ENGINE_', 'InnoDB');
-define('_PS_CACHING_SYSTEM_', 'CacheMemcache');
+define('_PS_CACHING_SYSTEM_', 'CacheApc');
 define('_PS_CACHE_ENABLED_', '0');
 define('_MEDIA_SERVER_1_', '');
 define('_MEDIA_SERVER_2_', '');

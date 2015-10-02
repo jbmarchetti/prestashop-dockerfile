@@ -19,9 +19,9 @@ RUN apt-get update \
 		wget \
 		unzip \
     memcached \
+		ssmtp \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install iconv mcrypt pdo mysql pdo_mysql mbstring soap gd && \
-    pecl install apc
+    && docker-php-ext-install iconv mcrypt pdo mysql pdo_mysql mbstring soap gd
 
 # Get PrestaShop
 ADD https://www.prestashop.com/download/old/prestashop_1.6.1.1.zip /tmp/prestashop.zip
@@ -30,6 +30,19 @@ RUN cp -R /tmp/prestashop/* /var/www/html
 
 RUN rm -R /var/www/html/install
 RUN mv /var/www/html/admin /var/www/html/admin-pa28
+
+
+#Install APC
+RUN pear config-set php_ini /usr/local/etc/php/php.ini
+RUN pecl config-set php_ini /usr/local/etc/php/php.ini
+RUN pecl install apcu-beta \
+    && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
+
+
+#Email
+RUN rm -r /var/lib/apt/lists/*
+ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
+ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
 
 #ADD https://github.com/PrestaShop/docker/blob/master/config_files/docker_updt_ps_domains.php /var/www/html/
 

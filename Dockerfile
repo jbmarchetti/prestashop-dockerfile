@@ -69,6 +69,8 @@ VOLUME /var/www/html/modules
 VOLUME /var/www/html/themes
 VOLUME /var/www/html/override
 VOLUME /var/www/html/img
+VOLUME /var/www/html/mails
+VOLUME /var/www/html/translations
 
 #COPY config_files/docker_run.sh /tmp/
 

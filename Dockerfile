@@ -44,6 +44,9 @@ RUN rm -r /var/lib/apt/lists/*
 ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
 ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
 
+#PHP Limits
+ADD php-limits.ini /usr/local/etc/php/conf.d/php-limits.ini
+
 #ADD https://github.com/PrestaShop/docker/blob/master/config_files/docker_updt_ps_domains.php /var/www/html/
 
 # Apache configuration

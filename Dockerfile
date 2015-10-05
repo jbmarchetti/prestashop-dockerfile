@@ -19,12 +19,12 @@ RUN apt-get update \
 		wget \
 		unzip \
     memcached \
-		ssmtp \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install iconv mcrypt pdo mysql pdo_mysql mbstring soap gd
 
 # Get PrestaShop
-ADD https://www.prestashop.com/download/old/prestashop_1.6.1.1.zip /tmp/prestashop.zip
+#ADD https://www.prestashop.com/download/old/prestashop_1.6.1.1.zip /tmp/prestashop.zip
+ADD https://www.prestashop.com/ajax/controller.php?method=download&type=releases&file=prestashop_1.6.1.1.zip&language=fr /tmp/prestashop.zip
 RUN unzip -q /tmp/prestashop.zip -d /tmp/
 RUN cp -R /tmp/prestashop/* /var/www/html
 
@@ -40,9 +40,9 @@ RUN pecl install apcu-beta \
 
 
 #Email
-RUN rm -r /var/lib/apt/lists/*
-ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
-ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
+# RUN rm -r /var/lib/apt/lists/*
+# ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
+# ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
 
 #PHP Limits
 ADD php-limits.ini /usr/local/etc/php/conf.d/php-limits.ini

@@ -1,4 +1,5 @@
-FROM php:5.6-apache
+# FROM php:5.6-apache
+FROM octohost/php5:5.5
 
 MAINTAINER Jean Baptsite Marchetti <marchetti.jb@gmail.com>
 
@@ -31,18 +32,11 @@ RUN cp -R /tmp/prestashop/* /var/www/html
 RUN rm -R /var/www/html/install
 RUN mv /var/www/html/admin /var/www/html/admin-pa28
 
-
 #Install APC
 RUN pear config-set php_ini /usr/local/etc/php/php.ini
 RUN pecl config-set php_ini /usr/local/etc/php/php.ini
 RUN pecl install apcu-beta \
     && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
-
-
-#Email
-# RUN rm -r /var/lib/apt/lists/*
-# ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
-# ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
 
 #PHP Limits
 ADD php-limits.ini /usr/local/etc/php/conf.d/php-limits.ini
@@ -55,15 +49,10 @@ RUN chown www-data:www-data -R /var/www/html/
 
 # PHP configuration
 ADD https://github.com/PrestaShop/docker/blob/master/config_files/php.ini /usr/local/etc/php/
-#RUN echo 'extension=apc.so' >> /usr/local/etc/php/php.ini && \
-#    echo 'extension=memcache.so' >> /usr/local/etc/php/php.ini && \
-
 
 COPY settings.inc.php /var/www/html/config/settings.inc.php
 
-# MySQL configuration
-# RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
-# EXPOSE 3306
+
 
 VOLUME /var/www/html/modules
 VOLUME /var/www/html/themes
@@ -74,5 +63,5 @@ VOLUME /var/www/html/translations
 
 #COPY config_files/docker_run.sh /tmp/
 
-#ENTRYPOINT ["/usr/sbin/apache2ctl -D FOREGROUND"]
-CMD ["apache2-foreground"]
+#CMD ["apache2-foreground"]
+CMD service php5-fpm start && nginx

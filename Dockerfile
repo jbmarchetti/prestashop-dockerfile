@@ -1,18 +1,27 @@
 # Starting point is latest ubuntu image
-FROM ubuntu:latest
+FROM ubuntu:14.04.2
 
 MAINTAINER Jean Baptsite Marchetti <marchetti.jb@gmail.com>
 
 #Set up latest sources for apt-get
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 
+
+# Surpress Upstart errors/warning
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN ln -sf /bin/true /sbin/initctl
+
+
+# Avoid MySQL questions during installation
+ENV DEBIAN_FRONTEND noninteractive
+RUN echo mysql-server-5.6 mysql-server/root_password password $DB_PASSWD | debconf-set-selections
+RUN echo mysql-server-5.6 mysql-server/root_password_again password $DB_PASSWD | debconf-set-selections
+
+
 #Update and upgrade ubuntu
 RUN apt-get update
 RUN apt-get -y upgrade
 
-# Keep upstart from complaining
-RUN dpkg-divert --local --rename --add /sbin/initctl
-# RUN ln -s /bin/true /sbin/initctl
 
 # Basic Requirements
 RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip

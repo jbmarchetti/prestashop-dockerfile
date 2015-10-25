@@ -1,11 +1,14 @@
 # Starting point is latest ubuntu image
-FROM ubuntu:14.04.2
+FROM debian:jessie
 
 MAINTAINER Jean Baptsite Marchetti <marchetti.jb@gmail.com>
 
 #Set up latest sources for apt-get
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+# persistent / runtime deps
+RUN apt-get update && apt-get install -y ca-certificates curl librecode0 libsqlite3-0 libxml2 --no-install-recommends && rm -r /var/lib/apt/lists/*
 
+# phpize deps
+RUN apt-get update && apt-get install -y autoconf file g++ gcc libc-dev make pkg-config re2c --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # Surpress Upstart errors/warning
 RUN dpkg-divert --local --rename --add /sbin/initctl
@@ -22,10 +25,6 @@ RUN echo mysql-server-5.6 mysql-server/root_password_again password $DB_PASSWD |
 RUN apt-get update
 RUN apt-get -y upgrade
 
-
-RUN apt-get clean
-RUN apt-get autoclean
-RUN apt-get remove --purge mysql-client-5.5 mysql-client-core-5.5 mysql-common mysql-server mysql-server-5.5 mysql-server-core-5.5
 
 # Basic Requirements
 RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip

@@ -56,7 +56,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 
 # Get PrestaShop
 #ADD https://www.prestashop.com/download/old/prestashop_1.6.1.1.zip /tmp/prestashop.zip
-ADD https://www.prestashop.com/ajax/controller.php?method=download&type=releases&file=prestashop_1.6.1.1.zip&language=fr /tmp/prestashop.zip
+ADD https://www.prestashop.com/ajax/controller.php?method=download&type=releases&file=prestashop_1.6.1.3.zip&language=fr /tmp/prestashop.zip
 RUN unzip -q /tmp/prestashop.zip -d /tmp/
 RUN cp -R /tmp/prestashop/* /var/www/html
 RUN rm -R /var/www/html/install

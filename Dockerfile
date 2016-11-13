@@ -47,6 +47,7 @@ RUN sed -i 's/^;clear_env = no/clear_env = no/g' /etc/php5/fpm/pool.d/www.conf
 
 # nginx site conf
 ADD ./nginx-site.conf /etc/nginx/sites-available/default
+RUN sed -i -e "s/custom_rules/$REWRITE_RULES/g" /etc/nginx/sites-available/default
 
 # Supervisor Config
 RUN /usr/bin/easy_install supervisor
